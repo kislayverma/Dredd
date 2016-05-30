@@ -25,15 +25,15 @@ import com.github.kislayverma.dredd.domain.action.async.AsyncExecutionRequest;
  * This is the default implementation of an asynchronous action which return to the
  * executor immediately and processes its job in the background on a separate thread.
  * @author kislay.verma
- * @param <E>
- * @param <T>
+ * @param <E> Entity on which event occurred
+ * @param <T> Event which occurred
  */
 public class BaseAsyncAction<E extends Entity, T extends Event> implements Action<E, T> {
 
     @Override
     public Object execute(Entity E, Event T) {
         AsyncExecutionRequest request = new AsyncExecutionRequest(E, T, this);
-        AsyncActionQueue.submit(request);
+        AsyncActionQueue.getInstance().submit(request);
 
         return true;
     }
