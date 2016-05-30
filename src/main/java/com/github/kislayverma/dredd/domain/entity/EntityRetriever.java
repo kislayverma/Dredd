@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.domain.entity;
+
+import com.github.kislayverma.dredd.domain.Entity;
 
 /**
- * This defines the state of an entity as defined in the context of an event.
+ * This defines the interfaces of an entity source which is expected to retrieve the actual entity given its id.
  * @author kislay.verma
- * @param <S>
+ * @param <E> Type of the entity this class retrieves
  */
-public interface State<S> {
-    
+public interface EntityRetriever<E extends Entity> {
+    E fetchEntity(String entityId);
+    Class<E> getEntityType();
 }

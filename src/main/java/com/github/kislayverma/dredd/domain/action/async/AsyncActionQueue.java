@@ -13,22 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.domain.action.async;
 
 /**
- * This class defines an action executor
+ * This is a queue to which action execution requests can be submitted for processing in FIFO order.
  * @author kislay.verma
- * @param <A> Evaluated action object
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
  */
-public interface Executor<A extends Action, E extends Entity, T extends Event> {
-    /**
-     * This method invokes the appropriate action based on the given inputs.
-     * @param A Evaluated action object
-     * @param E Entity on which event has occurred
-     * @param T The event which has occurred
-     * @return The result of the executed action
-     */
-    Object execute(Action A, Entity E, Event T);
+public class AsyncActionQueue {
+    public static void submit(AsyncExecutionRequest request) {
+        
+    }
 }

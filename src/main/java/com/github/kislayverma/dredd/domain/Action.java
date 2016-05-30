@@ -21,6 +21,6 @@ package com.github.kislayverma.dredd.domain;
  * @param <E> Entity on which event has occurred
  * @param <T> The event which has occurred
  */
-public interface Action<E, T> {
+public interface Action<E extends Entity, T extends Event> {
     Object execute(Entity E, Event T);
 }

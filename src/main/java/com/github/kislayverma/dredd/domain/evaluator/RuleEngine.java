@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.domain.evaluator;
+
+import com.github.kislayverma.dredd.domain.Entity;
+import com.github.kislayverma.dredd.domain.Event;
 
 /**
- * This class defines an action executor
+ * This defines the rule engine used to determine the resultant state from an event occurring on an entity.
  * @author kislay.verma
- * @param <A> Evaluated action object
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
  */
-public interface Executor<A extends Action, E extends Entity, T extends Event> {
-    /**
-     * This method invokes the appropriate action based on the given inputs.
-     * @param A Evaluated action object
-     * @param E Entity on which event has occurred
-     * @param T The event which has occurred
-     * @return The result of the executed action
-     */
-    Object execute(Action A, Entity E, Event T);
+public interface RuleEngine {
+    String getRule(Entity E, Event T);
 }

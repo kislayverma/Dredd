@@ -25,4 +25,5 @@ public interface Event<E, P> {
     String getEntityId();
     P getPayload();
     String getEventType();
+    E getEntityType();
 }
