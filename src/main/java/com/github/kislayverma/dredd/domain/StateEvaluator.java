@@ -16,9 +16,17 @@
 package com.github.kislayverma.dredd.domain;
 
 /**
- *
+ * This defines a state evaluator, which returns a state based on the input entity and event.
  * @author kislay.verma
+ * @param <E> Entity on which event has occurred
+ * @param <T> The event which has occurred
  */
-public interface StateEvaluator {
-    
+public interface StateEvaluator<E, T> {
+    /**
+     * This method returns an object representing the entity's state based on the input entity and event.
+     * @param E Entity on which event has occurred
+     * @param T The event which has occurred
+     * @return Object representing state if it could be evaluated, null if no valid state was found for inputs
+     */
+    State evaluate(Entity E, Event T);
 }

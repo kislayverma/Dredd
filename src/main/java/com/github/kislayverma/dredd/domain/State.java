@@ -16,13 +16,10 @@
 package com.github.kislayverma.dredd.domain;
 
 /**
- * This interface models an event occurring on an entity.
+ * This defines the state of an entity as defined in the context of an event.
  * @author kislay.verma
- * @param <E> Entity type
- * @param <P> Payload type
+ * @param <S>
  */
-public interface Event<E, P> {
-    String getEntityId();
-    P getPayload();
-    String getEventType();
+public interface State<S> {
+    
 }

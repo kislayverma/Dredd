@@ -16,13 +16,19 @@
 package com.github.kislayverma.dredd.domain;
 
 /**
- * This interface models an event occurring on an entity.
+ * This class defines an action executor
  * @author kislay.verma
- * @param <E> Entity type
- * @param <P> Payload type
+ * @param <S> Evaluated state object
+ * @param <E> Entity on which event has occurred
+ * @param <T> The event which has occurred
  */
-public interface Event<E, P> {
-    String getEntityId();
-    P getPayload();
-    String getEventType();
+public interface Executor<S, E, T> {
+    /**
+     * This method invokes the appropriate action based on the given inputs.
+     * @param S
+     * @param E
+     * @param T
+     * @return 
+     */
+    Object execute(State S, Entity E, Event T);
 }

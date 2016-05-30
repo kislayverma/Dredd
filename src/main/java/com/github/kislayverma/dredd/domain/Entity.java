@@ -21,5 +21,5 @@ package com.github.kislayverma.dredd.domain;
  * @param <T> Type of the entity
  */
 public interface Entity<T> {
-    
+    T getData();
 }
