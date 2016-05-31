@@ -28,13 +28,14 @@ import org.slf4j.LoggerFactory;
  */
 public class AsyncActionQueue {
     private final Queue<AsyncExecutionRequest> taskList = new ConcurrentLinkedQueue<>();
-    private final List<Thread> consumerThreadList = new ArrayList<>();
+    private final List<Thread> consumerThreadList;
     private static AsyncActionQueue INSTANCE;
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncActionQueue.class);
 
     private AsyncActionQueue() {
+        this.consumerThreadList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            Thread x = new Thread(new ExecutorThread(), "DR-Thread-" + i);
+            Thread x = new Thread(new ExecutorThread(), "Dredd-Async-Thread-" + i);
             x.start();
             consumerThreadList.add(x);
             LOGGER.info("Started thread " + x.getName());
@@ -71,7 +72,7 @@ public class AsyncActionQueue {
             try {
                 consume();
             } catch (InterruptedException ex) {
-                LOGGER.error("Error processing async action.", ex);
+                LOGGER.error("Error processing async action", ex);
             }
         }
     }
