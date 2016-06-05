@@ -4,7 +4,7 @@
     <artifactId>dredd</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Dredd</name>
-    <description>A judge, jury, executioner java library for complex workflows triggered by events on entities</description>
+    <description>A judge, jury, executioner java library for orchestrating workflows triggered by events on entities</description>
     <url>https://github.com/kislayverma/Dredd</url>
 
     <licenses>
