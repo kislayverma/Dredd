@@ -48,7 +48,7 @@ public class BaseExecutor implements Executor {
         }
     }
 
-    private Object processSyncAction(Action A, Entity E, Event T) {
+    protected Object processSyncAction(Action A, Entity E, Event T) {
         Action action = actionFactory.getAction(A.getActionCode());
         if (action == null) {
             throw new IllegalArgumentException("No action configured for code " + A.getActionCode());
@@ -59,7 +59,7 @@ public class BaseExecutor implements Executor {
 
     // This method submits an asynchronous execution request to the configured action 
     // queue for later processing.
-    private Object processAsyncAction(Action A, Entity E, Event T) {
+    protected Object processAsyncAction(Action A, Entity E, Event T) {
         AsyncExecutionRequest request = new AsyncExecutionRequest(E, T, A.getActionCode());
         asyncQueue.submitTask(request);
 
