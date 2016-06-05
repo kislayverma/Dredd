@@ -15,6 +15,7 @@
  */
 package com.github.kislayverma.dredd.action.async;
 
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException;
 import com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -39,7 +40,7 @@ public class BaseActionQueue implements ActionQueue {
     }
 
     @Override
-    public AsyncExecutionRequest getTask() {
+    public AsyncExecutionRequest getTask() throws AsyncTaskConsumptionException {
         AsyncExecutionRequest task = queue.poll();
         return (task != null) ? task : null;
     }

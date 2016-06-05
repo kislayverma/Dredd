@@ -17,6 +17,8 @@ package com.github.kislayverma.dredd.action.async.amqp;
 
 import com.github.kislayverma.dredd.action.async.ActionQueue;
 import com.github.kislayverma.dredd.action.async.AsyncExecutionRequest;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -59,18 +61,19 @@ public class AmqpActionQueue implements ActionQueue {
     }
 
     @Override
-    public void submitTask(AsyncExecutionRequest request) {
+    public void submitTask(AsyncExecutionRequest request) throws AsyncTaskSubmissionException {
         try {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.basicPublish(this.exchange, this.routingKey, null, serialize(request));
         } catch (IOException | TimeoutException ex) {
             LOGGER.error("Failed to submit action execution request", ex);
+            throw new AsyncTaskSubmissionException();
         }
     }
 
     @Override
-    public AsyncExecutionRequest getTask() {
+    public AsyncExecutionRequest getTask() throws AsyncTaskConsumptionException {
         try {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
@@ -85,7 +88,7 @@ public class AmqpActionQueue implements ActionQueue {
             }
         } catch (IOException | TimeoutException | ClassNotFoundException ex) {
             LOGGER.error("Failed to read message from the queue", ex);
-            throw new RuntimeException("Failed to read message from the queue", ex);
+            throw new AsyncTaskConsumptionException();
         }
 
         return null; // Won't ever reach here
