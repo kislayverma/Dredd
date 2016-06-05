@@ -16,7 +16,7 @@
 package com.github.kislayverma.dredd.executor;
 
 import com.github.kislayverma.dredd.action.ActionFactory;
-import com.github.kislayverma.dredd.action.async.AsyncActionQueue;
+import com.github.kislayverma.dredd.action.async.ActionQueue;
 import com.github.kislayverma.dredd.action.async.AsyncExecutionRequest;
 import com.github.kislayverma.dredd.domain.Action;
 import com.github.kislayverma.dredd.domain.ActionType;
@@ -30,9 +30,9 @@ import com.github.kislayverma.dredd.domain.Executor;
  */
 public class BaseExecutor implements Executor {
     private final ActionFactory actionFactory;
-    private final AsyncActionQueue asyncQueue;
+    private final ActionQueue asyncQueue;
 
-    public BaseExecutor(ActionFactory actionFactory, AsyncActionQueue asyncQueue) {
+    public BaseExecutor(ActionFactory actionFactory, ActionQueue asyncQueue) {
         this.actionFactory = actionFactory;
         this.asyncQueue = asyncQueue;
     }

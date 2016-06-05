@@ -23,10 +23,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * action executions are submitted to be processed in FIFO order by an executor consumer.
  * @author kislay.verma
  */
-public class BaseAsyncActionQueue implements AsyncActionQueue {
+public class BaseActionQueue implements ActionQueue {
     private final Queue<AsyncExecutionRequest> taskList;
 
-    public BaseAsyncActionQueue() {
+    public BaseActionQueue() {
         this.taskList = new ConcurrentLinkedQueue<>();
     }
 

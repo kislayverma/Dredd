@@ -16,7 +16,7 @@
 package com.github.kislayverma.dredd.executor.async;
 
 import com.github.kislayverma.dredd.action.ActionFactory;
-import com.github.kislayverma.dredd.action.async.AsyncActionQueue;
+import com.github.kislayverma.dredd.action.async.ActionQueue;
 import com.github.kislayverma.dredd.action.async.AsyncExecutionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +28,11 @@ import org.slf4j.LoggerFactory;
  * @author kislay.verma
  */
 class BaseAsyncConsumerWorker implements Runnable {
-    private final AsyncActionQueue taskList;
+    private final ActionQueue taskList;
     private final ActionFactory actionFactory;
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumerWorker.class);
 
-    public BaseAsyncConsumerWorker(AsyncActionQueue taskList, ActionFactory actionFactory) {
+    public BaseAsyncConsumerWorker(ActionQueue taskList, ActionFactory actionFactory) {
         this.taskList = taskList;
         this.actionFactory = actionFactory;
     }

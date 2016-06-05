@@ -19,7 +19,7 @@ package com.github.kislayverma.dredd.action.async;
  * This is a queue to which action execution requests can be submitted for asynchronous processing.
  * @author kislay.verma
  */
-public interface AsyncActionQueue {
+public interface ActionQueue {
 
     /**
      * This method submits an asynchronous task to the processing queue.

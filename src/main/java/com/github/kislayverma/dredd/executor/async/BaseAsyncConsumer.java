@@ -16,7 +16,7 @@
 package com.github.kislayverma.dredd.executor.async;
 
 import com.github.kislayverma.dredd.action.ActionFactory;
-import com.github.kislayverma.dredd.action.async.AsyncActionQueue;
+import com.github.kislayverma.dredd.action.async.ActionQueue;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class BaseAsyncConsumer {
     private final List<Thread> consumerThreadList;
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumer.class);
 
-    public BaseAsyncConsumer(AsyncActionQueue taskList, ActionFactory actionfactory) {
+    public BaseAsyncConsumer(ActionQueue taskList, ActionFactory actionfactory) {
         this.consumerThreadList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             Thread t = new Thread(
