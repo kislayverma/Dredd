@@ -15,10 +15,13 @@
  */
 package com.github.kislayverma.dredd.evaluator;
 
+import com.github.kislayverma.dredd.action.ActionFactory;
 import com.github.kislayverma.dredd.domain.Action;
 import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Evaluator;
 import com.github.kislayverma.dredd.domain.Event;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the default implementation of the state evaluator.
@@ -28,11 +31,23 @@ import com.github.kislayverma.dredd.domain.Event;
  */
 public class BaseEvaluator<E extends Entity, T extends Event> implements Evaluator<E, T> {
 
-    private RuleEngine engine;
+    private final RuleEngine engine;
+    private final ActionFactory actionfactory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseEvaluator.class);
+
+    public BaseEvaluator(RuleEngine engine, ActionFactory actionfactory) {
+        this.engine = engine;
+        this.actionfactory = actionfactory;
+    }
 
     @Override
     public Action evaluate(Entity E, Event T) {
-        engine.getRule(E, T);
-        return null;
+        String ruleOutput = engine.getRule(E, T);
+        if (ruleOutput == null) {
+            LOGGER.error("No action defined for combination of entity " + E + " and event " + T);
+            return null;
+        }
+
+        return actionfactory.getAction(ruleOutput);
     }
 }

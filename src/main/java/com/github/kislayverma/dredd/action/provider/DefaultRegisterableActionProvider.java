@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.action;
+package com.github.kislayverma.dredd.action.provider;
 
 import com.github.kislayverma.dredd.domain.Action;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultActionRegistry implements ActionRegistry {
+public class DefaultRegisterableActionProvider implements RegisterableActionProvider {
     private final Map<String, Action> actionRegister;
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultActionRegistry.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRegisterableActionProvider.class);
 
-    public DefaultActionRegistry() {
-        LOGGER.info("Initializing default action registry...");
+    public DefaultRegisterableActionProvider() {
+        LOGGER.info("Initializing default registerable action provider...");
         this.actionRegister = new ConcurrentHashMap<>();
     }
 
@@ -37,7 +39,7 @@ public class DefaultActionRegistry implements ActionRegistry {
     }
 
     @Override
-    public Action getAction(String actionType) {
-        return this.actionRegister.get(actionType);
+    public List<Action> getActions() {
+        return new ArrayList<>(this.actionRegister.values());
     }
 }

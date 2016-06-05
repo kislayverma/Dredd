@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.action;
+package com.github.kislayverma.dredd.action.provider;
 
 import com.github.kislayverma.dredd.domain.Action;
 
 /**
- * This class is a factory interface for obtaining the needed action instances without 
- * exposing the details of their construction to the clients. 
- * @author kislay.verma
+ * This class models an action provider where actions can be registered against their 
+ * unique codes before they can be used. Implementation of this interface need not know 
+ * how to look up action classes, the classes must come to them to be registered.
+ * 
+ * @author  Kislay Verma
  */
-public interface ActionFactory {
+public interface RegisterableActionProvider extends ActionProvider {
     /**
-     * This method returns the action class given its unique identifier.
-     * 
-     * @param actionCode Unique identifier for an action
-     * @return The action class corresponding to the given type
-     * @throws IllegalArgumentException if no action is configured for the given type
+     * This method registers an object of an action class against its unique code.
+     * @param action The {@link Action} object to be registered
      */
-    Action getAction(String actionCode) throws IllegalArgumentException;
+    void registerAction(Action action);
 }

@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.action;
+package com.github.kislayverma.dredd.action.provider;
 
 import com.github.kislayverma.dredd.domain.Action;
+import java.util.List;
 
 /**
- * This class is a factory interface for obtaining the needed action instances without 
- * exposing the details of their construction to the clients. 
- * @author kislay.verma
+ * This interface models registry which return objects of all valid action classes of a system.
+ * The mechanics of how these instances are obtained to each specific implementation.
+ * e.g. Applications using Spring may load all beans of a certain super type from the context.
  */
-public interface ActionFactory {
+public interface ActionProvider {
     /**
-     * This method returns the action class given its unique identifier.
-     * 
-     * @param actionCode Unique identifier for an action
-     * @return The action class corresponding to the given type
-     * @throws IllegalArgumentException if no action is configured for the given type
+     * This method returns a list of objects of all available actions.
+     * @return list of objects of all available action classes
      */
-    Action getAction(String actionCode) throws IllegalArgumentException;
+    List<Action> getActions();
 }

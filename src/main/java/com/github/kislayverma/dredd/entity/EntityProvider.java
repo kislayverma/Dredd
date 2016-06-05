@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.action;
+package com.github.kislayverma.dredd.entity;
 
-import com.github.kislayverma.dredd.domain.Action;
+import com.github.kislayverma.dredd.domain.Entity;
 
-public interface ActionRegistry {
-    /**
-     * This class model a registry where action can be registered against their unique types.
-     * @param action The {@link Action} object to be registered
-     */
-    void registerAction(Action action);
-
-    Action getAction(String actionType);
+/**
+ * This interface defines an entity source which is expected to retrieve the actual entity given its id.
+ * @author kislay.verma
+ * @param <E> Type of the entity this class retrieves
+ */
+public interface EntityProvider<E extends Entity> {
+    E fetchEntity(String entityId);
+    Class<E> getEntityType();
 }

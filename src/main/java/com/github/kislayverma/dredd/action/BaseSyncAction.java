@@ -21,8 +21,7 @@ import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Event;
 
 /**
- * This is the default implementation of an asynchronous action which return to the
- * executor immediately and processes its job in the background on a separate thread.
+ * This is the default implementation of synchronously executed action.
  * @author kislay.verma
  * @param <E> Entity on which event occurred
  * @param <T> Event which occurred

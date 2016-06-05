@@ -15,30 +15,42 @@
  */
 package com.github.kislayverma.dredd.action;
 
+import com.github.kislayverma.dredd.action.provider.DefaultRegisterableActionProvider;
+import com.github.kislayverma.dredd.action.provider.ActionProvider;
 import com.github.kislayverma.dredd.domain.Action;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * This models an action to be invoked on determination of a valid state.
+ * This is the default implementation of the {@link ActionFactory} interfaces. It uses 
+ * a given implementation of {@link ActionProvider} to provide clients the action instances they need.
+ * 
  * @author kislay.verma
  */
 public class BaseActionFactory implements ActionFactory {
-    private final ActionRegistry registry;
+    private final ActionProvider provider;
+    private final Map<String, Action> actionMap;
     private static BaseActionFactory INSTANCE;
 
-    private BaseActionFactory(ActionRegistry registry) {
-        this.registry = registry;
+    private BaseActionFactory(ActionProvider provider) {
+        this.provider = provider;
+        actionMap = new ConcurrentHashMap<>();
+
+        for (Action action : provider.getActions()) {
+            actionMap.put(action.getActionCode(), action);
+        }
     }
 
     public static ActionFactory getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new BaseActionFactory(new DefaultActionRegistry());
+            INSTANCE = new BaseActionFactory(new DefaultRegisterableActionProvider());
         }
 
         return INSTANCE;
     }
 
     @Override
-    public Action getAction(String actionType) throws IllegalArgumentException {
-        return this.registry.getAction(actionType);
+    public Action getAction(String actionCode) throws IllegalArgumentException {
+        return this.actionMap.get(actionCode);
     }
 }

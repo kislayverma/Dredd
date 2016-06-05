@@ -15,9 +15,7 @@
  */
 package com.github.kislayverma.dredd.executor.async;
 
-import com.github.kislayverma.dredd.domain.Action;
-import com.github.kislayverma.dredd.domain.Entity;
-import com.github.kislayverma.dredd.action.BaseActionFactory;
+import com.github.kislayverma.dredd.action.ActionFactory;
 import com.github.kislayverma.dredd.action.async.AsyncActionQueue;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,22 +23,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the default implementation of executor for async actions. This reads data from the configured
- * AsycActionQueue and executes the tasks in it.
+ * This is the default implementation of consumer for async execution requests. This reads 
+ * data from the configured AsycActionQueue, looks up the action, and executes it.
+ * 
  * @author kislay.verma
  */
-public class BaseAsyncExecutor {
+public class BaseAsyncConsumer {
     private final List<Thread> consumerThreadList;
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumer.class);
 
-    public BaseAsyncExecutor(AsyncActionQueue taskList) {
+    public BaseAsyncConsumer(AsyncActionQueue taskList, ActionFactory actionfactory) {
         this.consumerThreadList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            Thread x = new Thread(new BaseAsyncExecutorWorker(
-                taskList, BaseActionFactory.getInstance()), "Dredd-Async-Worker-" + i);
-            x.start();
-            consumerThreadList.add(x);
-            LOGGER.info("Started thread " + x.getName());
+            Thread t = new Thread(
+                new BaseAsyncConsumerWorker(taskList, actionfactory), "Dredd-Async-Worker-" + i);
+            consumerThreadList.add(t);
+            t.start();
+
+            LOGGER.info("Started thread " + t.getName());
         }
     }
 }

@@ -18,11 +18,8 @@ package com.github.kislayverma.dredd.domain;
 /**
  * This class defines an action executor
  * @author kislay.verma
- * @param <A> Evaluated action object
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
  */
-public interface Executor<A extends Action, E extends Entity, T extends Event> {
+public interface Executor {
     /**
      * This method invokes the appropriate action based on the given inputs.
      * @param A Evaluated action object

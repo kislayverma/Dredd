@@ -27,12 +27,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author kislay.verma
  */
-public class BaseAsyncExecutorWorker implements Runnable {
+class BaseAsyncConsumerWorker implements Runnable {
     private final AsyncActionQueue taskList;
     private final ActionFactory actionFactory;
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncExecutorWorker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumerWorker.class);
 
-    public BaseAsyncExecutorWorker(AsyncActionQueue taskList, ActionFactory actionFactory) {
+    public BaseAsyncConsumerWorker(AsyncActionQueue taskList, ActionFactory actionFactory) {
         this.taskList = taskList;
         this.actionFactory = actionFactory;
     }

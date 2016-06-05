@@ -25,22 +25,22 @@ import org.slf4j.LoggerFactory;
  * without worrying about the inner details.
  * @author kislay.verma
  */
-public class EntityRetrieverFactory {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EntityRetrieverFactory.class);
-    private Map<String, EntityRetriever> retrieverMap;
+public class EntityProviderFactory {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityProviderFactory.class);
+    private Map<String, EntityProvider> retrieverMap;
 
     /**
-     * Registers an {@link EntityRetriever} instance in the factory.
-     * @param retriever The EntityRetriever to register
+     * Registers an {@link EntityProvider} instance in the factory.
+     * @param retriever The EntityProvider to register
      */
-    void registerEntityRetriever(EntityRetriever retriever) {
+    void registerEntityRetriever(EntityProvider retriever) {
         if (retriever != null) {
             this.retrieverMap.put(retriever.getEntityType().getName(), retriever);
         }
     }
 
     Entity getEntity(String entityId, Class entityType) {
-        EntityRetriever retriever = this.retrieverMap.get(entityType.getName());
+        EntityProvider retriever = this.retrieverMap.get(entityType.getName());
         if (retriever == null) {
             LOGGER.error("No defined way to retrive entities of type " + entityType.getName());
             throw new RuntimeException("No defined way to retrive entities of type " + entityType.getName());
