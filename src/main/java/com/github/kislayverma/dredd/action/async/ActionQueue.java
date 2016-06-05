@@ -15,6 +15,9 @@
  */
 package com.github.kislayverma.dredd.action.async;
 
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException;
+
 /**
  * This is a queue to which action execution requests can be submitted for asynchronous processing.
  * @author kislay.verma
@@ -24,12 +27,14 @@ public interface ActionQueue {
     /**
      * This method submits an asynchronous task to the processing queue.
      * @param request The {@link AsyncExecutionRequest} request to be submitted
+     * @throws com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException if the task could not be submitted
      */
-    void submitTask(AsyncExecutionRequest request);
+    void submitTask(AsyncExecutionRequest request) throws AsyncTaskSubmissionException;
 
     /**
      * This method returns a task from the queue if present.
      * @return a task from the queue, null if the queue is empty
+     * @throws com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException  if a task could not be consumed
      */
-    AsyncExecutionRequest getTask();
+    AsyncExecutionRequest getTask() throws AsyncTaskConsumptionException;
 }

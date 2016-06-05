@@ -32,11 +32,11 @@ public class BaseAsyncConsumer {
     private final List<Thread> consumerThreadList;
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumer.class);
 
-    public BaseAsyncConsumer(ActionQueue taskList, ActionFactory actionfactory) {
+    public BaseAsyncConsumer(ActionQueue queue, ActionFactory actionfactory, int concurrentConsumers) {
         this.consumerThreadList = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < concurrentConsumers; i++) {
             Thread t = new Thread(
-                new BaseAsyncConsumerWorker(taskList, actionfactory), "Dredd-Async-Worker-" + i);
+                new BaseAsyncConsumerWorker(queue, actionfactory), "Dredd-Async-Worker-" + i);
             consumerThreadList.add(t);
             t.start();
 

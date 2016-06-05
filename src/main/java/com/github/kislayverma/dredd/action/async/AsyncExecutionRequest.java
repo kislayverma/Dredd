@@ -17,12 +17,13 @@ package com.github.kislayverma.dredd.action.async;
 
 import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Event;
+import java.io.Serializable;
 
 /**
  * This class models a request for asynchronous execution of an action with the given entity and event.
  * @author kislay.verma
  */
-public class AsyncExecutionRequest {
+public class AsyncExecutionRequest implements Serializable{
     private final Entity entity;
     private final Event event;
     private final String actionType;

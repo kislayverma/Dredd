@@ -23,6 +23,7 @@ import com.github.kislayverma.dredd.domain.ActionType;
 import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Event;
 import com.github.kislayverma.dredd.domain.Executor;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException;
 
 /**
  * This is the default implementation of the executor class.
@@ -42,7 +43,11 @@ public class BaseExecutor implements Executor {
         if (ActionType.SYNC.name().equalsIgnoreCase(A.getType().name())) {
             return processSyncAction(A, E, T);
         } else if (ActionType.SYNC.name().equalsIgnoreCase(A.getType().name())) {
-            return processAsyncAction(A, E, T);
+            try {
+                return processAsyncAction(A, E, T);
+            } catch (AsyncTaskSubmissionException ex) {
+                throw new RuntimeException("Failed to submit action execution request", ex);
+            }
         } else {
             throw new IllegalArgumentException("Unknow action type " + A.getType().name());
         }
@@ -59,7 +64,7 @@ public class BaseExecutor implements Executor {
 
     // This method submits an asynchronous execution request to the configured action 
     // queue for later processing.
-    protected Object processAsyncAction(Action A, Entity E, Event T) {
+    protected Object processAsyncAction(Action A, Entity E, Event T) throws AsyncTaskSubmissionException {
         AsyncExecutionRequest request = new AsyncExecutionRequest(E, T, A.getActionCode());
         asyncQueue.submitTask(request);
 
