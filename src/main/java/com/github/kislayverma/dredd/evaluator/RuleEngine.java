@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.entity;
+package com.github.kislayverma.dredd.evaluator;
 
 import com.github.kislayverma.dredd.domain.Entity;
+import com.github.kislayverma.dredd.domain.Event;
 
 /**
- * This defines the interfaces of an entity source which is expected to retrieve the actual entity given its id.
+ * This defines the rule engine used to determine the resultant state from an event occurring on an entity.
  * @author kislay.verma
- * @param <E> Type of the entity this class retrieves
  */
-public interface EntityRetriever<E extends Entity> {
-    E fetchEntity(String entityId);
-    Class<E> getEntityType();
+public interface RuleEngine {
+    String getRule(Entity E, Event T);
 }

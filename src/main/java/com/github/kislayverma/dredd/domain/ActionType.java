@@ -16,13 +16,10 @@
 package com.github.kislayverma.dredd.domain;
 
 /**
- * This models an action to be invoked on determination of a valid state.
+ * This enum defines an action as sync or asynchronous
  * @author kislay.verma
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
  */
-public interface Action<E extends Entity, T extends Event> {
-    String getActionCode();
-    ActionType getType();
-    Object execute(Entity E, Event T);
+public enum ActionType {
+    SYNC,
+    ASYNC
 }

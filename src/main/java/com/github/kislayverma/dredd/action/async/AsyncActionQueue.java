@@ -13,16 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.action.async;
 
 /**
- * This models an action to be invoked on determination of a valid state.
+ * This is a queue to which action execution requests can be submitted for asynchronous processing.
  * @author kislay.verma
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
  */
-public interface Action<E extends Entity, T extends Event> {
-    String getActionCode();
-    ActionType getType();
-    Object execute(Entity E, Event T);
+public interface AsyncActionQueue {
+
+    /**
+     * This method submits an asynchronous task to the processing queue.
+     * @param request The {@link AsyncExecutionRequest} request to be submitted
+     */
+    void submitTask(AsyncExecutionRequest request);
+
+    /**
+     * This method returns a task from the queue if present.
+     * @return a task from the queue, null if the queue is empty
+     */
+    AsyncExecutionRequest getTask();
 }

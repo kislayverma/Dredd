@@ -13,36 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.action.async;
+package com.github.kislayverma.dredd.action;
 
 import com.github.kislayverma.dredd.domain.Action;
+import com.github.kislayverma.dredd.domain.ActionType;
 import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Event;
 
 /**
- * This class models a request for asynchronous execution of an action with the given entity and event.
+ * This is the default implementation of an asynchronous action which return to the
+ * executor immediately and processes its job in the background on a separate thread.
  * @author kislay.verma
+ * @param <E> Entity on which event occurred
+ * @param <T> Event which occurred
  */
-public class AsyncExecutionRequest {
-    private final Entity entity;
-    private final Event event;
-    private final Action action;
-
-    public AsyncExecutionRequest(Entity entity, Event event, Action action) {
-        this.entity = entity;
-        this.event = event;
-        this.action = action;
-    }
-
-    public Entity getEntity() {
-        return entity;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public Action getAction() {
-        return action;
+public abstract class BaseAsyncAction<E extends Entity, T extends Event> implements Action<E, T> {
+    @Override
+    public ActionType getType() {
+        return ActionType.ASYNC;
     }
 }

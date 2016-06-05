@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.evaluator;
-
-import com.github.kislayverma.dredd.domain.Entity;
-import com.github.kislayverma.dredd.domain.Event;
+package com.github.kislayverma.dredd.executor;
 
 /**
- * This defines the rule engine used to determine the resultant state from an event occurring on an entity.
+ * This is the default implementation of the executor class.
  * @author kislay.verma
  */
-public interface RuleEngine {
-    String getRule(Entity E, Event T);
+public class BaseExecutor {
+    
 }

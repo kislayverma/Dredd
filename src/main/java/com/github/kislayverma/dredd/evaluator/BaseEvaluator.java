@@ -13,16 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.evaluator;
+
+import com.github.kislayverma.dredd.domain.Action;
+import com.github.kislayverma.dredd.domain.Entity;
+import com.github.kislayverma.dredd.domain.Evaluator;
+import com.github.kislayverma.dredd.domain.Event;
 
 /**
- * This models an action to be invoked on determination of a valid state.
+ * This is the default implementation of the state evaluator.
  * @author kislay.verma
  * @param <E> Entity on which event has occurred
  * @param <T> The event which has occurred
  */
-public interface Action<E extends Entity, T extends Event> {
-    String getActionCode();
-    ActionType getType();
-    Object execute(Entity E, Event T);
+public class BaseEvaluator<E extends Entity, T extends Event> implements Evaluator<E, T> {
+
+    private RuleEngine engine;
+
+    @Override
+    public Action evaluate(Entity E, Event T) {
+        engine.getRule(E, T);
+        return null;
+    }
 }

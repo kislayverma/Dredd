@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.action;
+package com.github.kislayverma.dredd.action;
 
 import com.github.kislayverma.dredd.domain.Action;
+import com.github.kislayverma.dredd.domain.ActionType;
 import com.github.kislayverma.dredd.domain.Entity;
 import com.github.kislayverma.dredd.domain.Event;
-import com.github.kislayverma.dredd.domain.action.async.AsyncActionQueue;
-import com.github.kislayverma.dredd.domain.action.async.AsyncExecutionRequest;
 
 /**
  * This is the default implementation of an asynchronous action which return to the
@@ -28,13 +27,9 @@ import com.github.kislayverma.dredd.domain.action.async.AsyncExecutionRequest;
  * @param <E> Entity on which event occurred
  * @param <T> Event which occurred
  */
-public class BaseAsyncAction<E extends Entity, T extends Event> implements Action<E, T> {
-
+public abstract class BaseSyncAction<E extends Entity, T extends Event> implements Action<E, T> {
     @Override
-    public Object execute(Entity E, Event T) {
-        AsyncExecutionRequest request = new AsyncExecutionRequest(E, T, this);
-        AsyncActionQueue.getInstance().submit(request);
-
-        return true;
+    public ActionType getType() {
+        return ActionType.SYNC;
     }
 }

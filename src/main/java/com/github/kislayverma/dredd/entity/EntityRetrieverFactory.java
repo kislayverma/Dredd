@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.entity;
+package com.github.kislayverma.dredd.entity;
 
 import com.github.kislayverma.dredd.domain.Entity;
 import java.util.Map;

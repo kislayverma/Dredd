@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain.evaluator;
+package com.github.kislayverma.dredd.action;
 
 import com.github.kislayverma.dredd.domain.Action;
-import com.github.kislayverma.dredd.domain.Entity;
-import com.github.kislayverma.dredd.domain.Evaluator;
-import com.github.kislayverma.dredd.domain.Event;
 
-/**
- * This is the default implementation of the state evaluator.
- * @author kislay.verma
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
- */
-public class BaseEvaluator<E extends Entity, T extends Event> implements Evaluator<E, T> {
+public interface ActionRegistry {
+    /**
+     * This class model a registry where action can be registered against their unique types.
+     * @param action The {@link Action} object to be registered
+     */
+    void registerAction(Action action);
 
-    private RuleEngine engine;
-
-    @Override
-    public Action evaluate(Entity E, Event T) {
-        engine.getRule(E, T);
-        return null;
-    }
+    Action getAction(String actionType);
 }

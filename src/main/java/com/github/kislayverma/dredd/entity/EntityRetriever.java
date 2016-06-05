@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kislayverma.dredd.domain;
+package com.github.kislayverma.dredd.entity;
+
+import com.github.kislayverma.dredd.domain.Entity;
 
 /**
- * This models an action to be invoked on determination of a valid state.
+ * This defines the interfaces of an entity source which is expected to retrieve the actual entity given its id.
  * @author kislay.verma
- * @param <E> Entity on which event has occurred
- * @param <T> The event which has occurred
+ * @param <E> Type of the entity this class retrieves
  */
-public interface Action<E extends Entity, T extends Event> {
-    String getActionCode();
-    ActionType getType();
-    Object execute(Entity E, Event T);
+public interface EntityRetriever<E extends Entity> {
+    E fetchEntity(String entityId);
+    Class<E> getEntityType();
 }
