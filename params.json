@@ -1,0 +1,6 @@
+{
+  "name": "Dredd",
+  "tagline": "A judge, jury, executioner java library for orchestrating workflows triggered by events on entities",
+  "body": "# Dredd\r\nA judge, jury, executioner java library for complex workflows triggered by events on entities\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
