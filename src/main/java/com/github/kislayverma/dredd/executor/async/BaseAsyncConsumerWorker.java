@@ -18,6 +18,7 @@ package com.github.kislayverma.dredd.executor.async;
 import com.github.kislayverma.dredd.action.ActionFactory;
 import com.github.kislayverma.dredd.action.async.ActionQueue;
 import com.github.kislayverma.dredd.action.async.AsyncExecutionRequest;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,18 +29,18 @@ import org.slf4j.LoggerFactory;
  * @author kislay.verma
  */
 class BaseAsyncConsumerWorker implements Runnable {
-    private final ActionQueue taskList;
+    private final ActionQueue queue;
     private final ActionFactory actionFactory;
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAsyncConsumerWorker.class);
 
     public BaseAsyncConsumerWorker(ActionQueue taskList, ActionFactory actionFactory) {
-        this.taskList = taskList;
+        this.queue = taskList;
         this.actionFactory = actionFactory;
     }
 
-    private void consume() throws InterruptedException {
+    private void consume() throws AsyncTaskConsumptionException {
         while (true) {
-            AsyncExecutionRequest task = taskList.getTask();
+            AsyncExecutionRequest task = queue.getTask();
             // Execute the submitted action with its data
             if (task != null) {
                 actionFactory.getAction(task.getActionType()).execute(task.getEntity(), task.getEvent());
@@ -51,8 +52,9 @@ class BaseAsyncConsumerWorker implements Runnable {
     public void run() {
         try {
             consume();
-        } catch (InterruptedException ex) {
-            LOGGER.error("Error processing async action", ex);
+        } catch (AsyncTaskConsumptionException ex) {
+            LOGGER.error("Error processing async execution request", ex);
+            throw new RuntimeException("Error processing async execution request", ex);
         }
     }
 }

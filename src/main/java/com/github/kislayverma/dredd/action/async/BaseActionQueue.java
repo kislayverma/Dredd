@@ -15,6 +15,8 @@
  */
 package com.github.kislayverma.dredd.action.async;
 
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskConsumptionException;
+import com.github.kislayverma.dredd.domain.exception.AsyncTaskSubmissionException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -24,22 +26,22 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author kislay.verma
  */
 public class BaseActionQueue implements ActionQueue {
-    private final Queue<AsyncExecutionRequest> taskList;
+    private final Queue<AsyncExecutionRequest> queue;
 
     public BaseActionQueue() {
-        this.taskList = new ConcurrentLinkedQueue<>();
+        this.queue = new ConcurrentLinkedQueue<>();
     }
 
     @Override
-    public void submitTask(AsyncExecutionRequest request) {
+    public void submitTask(AsyncExecutionRequest request) throws AsyncTaskSubmissionException {
         if (request != null) {
-            taskList.offer(request);
+            queue.offer(request);
         }
     }
 
     @Override
-    public AsyncExecutionRequest getTask() {
-        AsyncExecutionRequest task = taskList.poll();
+    public AsyncExecutionRequest getTask() throws AsyncTaskConsumptionException {
+        AsyncExecutionRequest task = queue.poll();
         return (task != null) ? task : null;
     }
 }
