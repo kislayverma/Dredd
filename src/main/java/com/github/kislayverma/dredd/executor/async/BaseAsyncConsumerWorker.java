@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the default implementation of worker thread for async actions. This reads
+ * This is the default implementation of worker thread for consuming async actions. This reads
  * data from the configured AsycActionQueue and executes the tasks in it.
  *
  * @author kislay.verma
