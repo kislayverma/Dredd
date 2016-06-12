@@ -38,16 +38,6 @@ class BaseAsyncConsumerWorker implements Runnable {
         this.actionFactory = actionFactory;
     }
 
-    private void consume() throws AsyncTaskConsumptionException {
-        while (true) {
-            AsyncExecutionRequest task = queue.getTask();
-            // Execute the submitted action with its data
-            if (task != null) {
-                actionFactory.getAction(task.getActionType()).execute(task.getEntity(), task.getEvent());
-            }
-        }
-    }
-
     @Override
     public void run() {
         try {
@@ -55,6 +45,16 @@ class BaseAsyncConsumerWorker implements Runnable {
         } catch (AsyncTaskConsumptionException ex) {
             LOGGER.error("Error processing async execution request", ex);
             throw new RuntimeException("Error processing async execution request", ex);
+        }
+    }
+
+    private void consume() throws AsyncTaskConsumptionException {
+        while (true) {
+            AsyncExecutionRequest task = queue.getTask();
+            // Execute the submitted action with its data
+            if (task != null) {
+                actionFactory.getAction(task.getActionType()).execute(task.getEntity(), task.getEvent());
+            }
         }
     }
 }
