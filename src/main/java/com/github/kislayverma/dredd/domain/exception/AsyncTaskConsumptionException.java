@@ -19,5 +19,5 @@ package com.github.kislayverma.dredd.domain.exception;
  * This exception is raised on any error in consuming an action execution request from an ActionQueue.
  * @author kislay.verma
  */
-public class AsyncTaskConsumptionException extends Exception {
+public class AsyncTaskConsumptionException extends RuntimeException {
 }

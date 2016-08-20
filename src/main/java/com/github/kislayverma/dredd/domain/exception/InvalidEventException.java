@@ -16,8 +16,11 @@
 package com.github.kislayverma.dredd.domain.exception;
 
 /**
- * This exception is raised on any error in submitting an action execution request to an ActionQueue.
+ * This exception is raised when an invalid event is received by Dredd.
  * @author kislay.verma
  */
-public class AsyncTaskSubmissionException extends RuntimeException {
+public class InvalidEventException extends RuntimeException {
+    public InvalidEventException(String message) {
+        super(message);
+    }
 }
